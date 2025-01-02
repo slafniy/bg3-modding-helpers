@@ -1,13 +1,17 @@
+import argparse
 from pathlib import Path
 
-ROOT_PATH = Path(__file__).parent.parent.parent.parent
-GITIGNORE_PATH = ROOT_PATH / ".gitignore"
-
+GITIGNORE_FILE = ".gitignore"
 
 if __name__ == '__main__':
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('-p', '--path', help='Project folder path', required=True)
+
+    args = arg_parser.parse_args()
+
     safe_to_remove = []
 
-    with GITIGNORE_PATH.open() as gitignore_file:
+    with (Path(args.path) / GITIGNORE_FILE).open() as gitignore_file:
         is_safe_to_remove_block = False
         for line in gitignore_file.readlines():
             if line.startswith("# SAFETOREMOVE_START"):
@@ -20,7 +24,7 @@ if __name__ == '__main__':
 
     safe_to_remove_resolved = set()
     for path in safe_to_remove:
-        resolved = Path(f'{ROOT_PATH}{path}').resolve()
+        resolved = Path(f'{args.path}{path}').resolve()
         safe_to_remove_resolved.add(resolved)
 
     print('Safe to remove file list from .gitignore:')
