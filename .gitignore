@@ -1,5 +1,6 @@
 /.idea/
 /damage_calc/.ipynb_checkpoints/
 __pycache__/
+/utils/output/
 
 *.log
