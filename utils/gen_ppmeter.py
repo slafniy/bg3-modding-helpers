@@ -46,6 +46,54 @@ TEMPLATE_WIDGET_VALUES = Template("""
                     </StackPanel>
                 </DataTemplate>""")
 
+TEMPLATE_WIDGET_TABLE = Template("""
+                            <StackPanel Visibility="{Binding IsChecked, ElementName=ToggleHealingTaken, Converter={StaticResource BoolToVisibleConverter}}">
+                                <!-- $stat_name Combat -->
+                                <ListView ItemsSource="{Binding Data.PartyCharacters}" Visibility="{Binding IsChecked, ElementName=ToggleCombat, Converter={StaticResource BoolToVisibleConverter}}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{Binding Source='h4c07541bg0c4ag4316g95dfgc639cae23097', Converter={StaticResource TranslatedStringConverter}}"/>
+                                            <GridViewColumn Header="{Binding Source='h83dc745bg262fg41acg9631g873908251a68', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterCombatHealingTakenTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h3a4ab91agf336g4e20g85bcg4a5a72fad730', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterCombatRoundsTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h5fab9a5eg6bf5g4227g9de1g5e57aad2c88f', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterCombatHTPRTemplate}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <!-- $stat_name Day -->
+                                <ListView ItemsSource="{Binding Data.PartyCharacters}" Visibility="{Binding IsChecked, ElementName=ToggleDay, Converter={StaticResource BoolToVisibleConverter}}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{Binding Source='h4c07541bg0c4ag4316g95dfgc639cae23097', Converter={StaticResource TranslatedStringConverter}}"/>
+                                            <GridViewColumn Header="{Binding Source='h83dc745bg262fg41acg9631g873908251a68', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterDayHealingTakenTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h3a4ab91agf336g4e20g85bcg4a5a72fad730', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterDayRoundsTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h5fab9a5eg6bf5g4227g9de1g5e57aad2c88f', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterDayHTPRTemplate}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <!-- $stat_name Level -->
+                                <ListView ItemsSource="{Binding Data.PartyCharacters}" Visibility="{Binding IsChecked, ElementName=ToggleLevel, Converter={StaticResource BoolToVisibleConverter}}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{Binding Source='h4c07541bg0c4ag4316g95dfgc639cae23097', Converter={StaticResource TranslatedStringConverter}}"/>
+                                            <GridViewColumn Header="{Binding Source='h83dc745bg262fg41acg9631g873908251a68', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterLevelHealingTakenTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h3a4ab91agf336g4e20g85bcg4a5a72fad730', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterLevelRoundsTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h5fab9a5eg6bf5g4227g9de1g5e57aad2c88f', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterLevelHTPRTemplate}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                <!-- $stat_name Overall -->
+                                <ListView ItemsSource="{Binding Data.PartyCharacters}" Visibility="{Binding IsChecked, ElementName=ToggleOverall, Converter={StaticResource BoolToVisibleConverter}}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="{Binding Source='h4c07541bg0c4ag4316g95dfgc639cae23097', Converter={StaticResource TranslatedStringConverter}}"/>
+                                            <GridViewColumn Header="{Binding Source='h83dc745bg262fg41acg9631g873908251a68', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterOverallHealingTakenTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h3a4ab91agf336g4e20g85bcg4a5a72fad730', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterOverallRoundsTemplate}"/>
+                                            <GridViewColumn Header="{Binding Source='h5fab9a5eg6bf5g4227g9de1g5e57aad2c88f', Converter={StaticResource TranslatedStringConverter}}" CellTemplate="{StaticResource PPMeterOverallHTPRTemplate}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </StackPanel>""")
+
 LIFETIMES = ('Combat', 'Day', 'Level', 'Overall')
 
 
@@ -89,3 +137,5 @@ def generate_widget(stat_name: str, float_format=False):
 
 
 if __name__ == '__main__':
+    # generate_widget('SHPR', float_format=True)
+    generate_action_resource_definitions('SHPR')
