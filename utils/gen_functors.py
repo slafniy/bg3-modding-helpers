@@ -65,7 +65,10 @@ for name in sorted(functor_info.keys()):
     params_in_func = []
     params_list = sorted(functor_info[name]['arg_examples'], key=lambda x: len(x.split(',')))
     longest_params_list = params_list[-1].split(',')
+    if len(longest_params_list) == 1 and longest_params_list[0] == '':
+        longest_params_list = []
     for i, p in enumerate(longest_params_list):
+        i += 1
         param_type = ''
         p = str(p)
 
