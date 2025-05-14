@@ -8,6 +8,17 @@ ABILITIES = {
     Charisma
 }
 
+---@enum weaponProperties
+WEAPON_PROPERTIES = {
+    Heavy,
+    Twohanded,
+    Melee,
+    Versatile,
+    Thrown,
+    Ammunition,
+    Finesse
+}
+
 --- To increase/decrease Armor Class
 ---@param acDelta number Armor Class delta
 --- Examples:
@@ -3100,20 +3111,20 @@ function GetActiveWeapon(p1) end
 
 --- Examples:
 --- GetAttackWeapon(context.Target)
---- GetAttackWeapon()
 --- GetAttackWeapon(context.Source)
 --- GetAttackWeapon()
---- GetAttackWeapon(context.Source)
----@param p1
-function GetAttackWeapon(p1) end
+---@param entity string Entity to check
+function GetAttackWeapon(entity) end
 
 --- Examples:
 --- GetItemInEquipmentSlot(EquipmentSlot.MeleeOffHand)
 --- GetItemInEquipmentSlot(EquipmentSlot.MeleeMainHand)
---- GetItemInEquipmentSlot(EquipmentSlot.MeleeMainHand)
+--- GetItemInEquipmentSlot(EquipmentSlot.RangedMainHand)
 --- GetItemInEquipmentSlot(EquipmentSlot.MusicalInstrument)
----@param p1
-function GetItemInEquipmentSlot(p1) end
+--- GetItemInEquipmentSlot(EquipmentSlot.RangedMainHand, entity)
+---@param equipmentSlot string Enum EquipmentSlot
+---@param entity? string Entity to check, default context.Source (?)
+function GetItemInEquipmentSlot(equipmentSlot, entity) end
 
 --- Examples:
 --- GetSummoner(context.Source)
@@ -4350,6 +4361,11 @@ function HasVerbalComponentBlocked(p1) end
 --- HasWeaponInMainHand()
 --- HasWeaponInMainHand()
 function HasWeaponInMainHand() end
+
+--- Examples:
+--- HasWeaponProperty(WeaponProperties.Heavy, weapon)
+---@param weaponProperty string one of WEAPON_PROPERTIES
+function HasWeaponProperty(weaponProperty, weapon)  end
 
 --- Examples:
 --- HasWeightGreaterThan(9999)
@@ -9076,8 +9092,8 @@ function WeaponEnchantment(p1) end
 --- WeaponProperty(Unstowable)
 --- WeaponProperty(Thrown)
 --- WeaponProperty(Magical)
----@param p1
-function WeaponProperty(p1) end
+---@param weaponProperty string WEAPON_PROPERTY string
+function WeaponProperty(weaponProperty) end
 
 --- Examples:
 --- WearingArmor(context.Source)
@@ -9108,52 +9124,22 @@ function WieldingFinesseWeapon() end
 function WieldingFinesseWeaponInSpecificHand(p1, p2) end
 
 --- Examples:
+--- WieldingWeapon('Torch')
+--- WieldingWeapon('Torch',true)
+--- WieldingWeapon('Torch',true)
+--- WieldingWeapon('Torch',true)
 --- WieldingWeapon('Torch',false,false,context.Source)
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch',true)
 --- WieldingWeapon('Torch',true,false,context.Source)
 --- WieldingWeapon('Torch',true,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',true,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',true)
 --- WieldingWeapon('Dippable',true,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Dippable')
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Dippable',true,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',false,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Dippable',false,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch',false,false,context.Source)
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch',true)
---- WieldingWeapon('Torch',true)
 --- WieldingWeapon('Dippable',false,false,context.Source)
 --- WieldingWeapon('Dippable',true,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',false,false,context.Source)
---- WieldingWeapon('Torch')
---- WieldingWeapon('Torch',true)
 --- WieldingWeapon('Dippable',false,false,context.Source)
---- WieldingWeapon('Torch',true,false,context.Source)
---- WieldingWeapon('Torch')
----@param p1
----@param p2 boolean
----@param p3 boolean
----@param p4
-function WieldingWeapon(p1, p2, p3, p4) end
+---@param weaponType string Type of weapon or its property
+---@param checkOffhand boolean - check weapon in offhand if True (?)
+---@param alsoCheckInactiveWeaponSet boolean - check not only selected weapon set (?)
+---@param entity string Entity to check
+function WieldingWeapon(weaponType, checkOffhand, alsoCheckInactiveWeaponSet, entity) end
 
 --- Examples:
 --- WildMagicSpell()
